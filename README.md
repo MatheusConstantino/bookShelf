@@ -16,6 +16,12 @@ Up to project directory
   cd bookshelf
 ```
 
+Install dependencies
+
+```bash
+  composer install
+```
+
 Create the .env file with .env.example as an example
 
 Run the migrations
