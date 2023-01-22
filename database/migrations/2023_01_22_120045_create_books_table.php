@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('books', function (Blueprint $table) {
             $table->increments('book_id');
             $table->string('book_name', 255)->nullable(false);
-            $table->mediumInteger('book_isbn')->nullable(false);
+            $table->integer('book_isbn')->nullable(false);
             $table->decimal('book_value', 10,2);
             $table->timestamps();
         });
