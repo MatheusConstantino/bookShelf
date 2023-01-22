@@ -294,15 +294,6 @@
 						},
 						"method": "DELETE",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"book_name\": \"Test book Updated\",\r\n    \"book_isbn\": 123456789,\r\n    \"book_value\": 10.99\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
 							"raw": "http://127.0.0.1:8000/api/book/1",
 							"protocol": "http",
