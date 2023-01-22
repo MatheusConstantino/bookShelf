@@ -14,7 +14,7 @@ class BooksController extends Controller
 
     public function index()
     {
-        $books = Books::all();
+        $books = Books::paginate();
         return response()->json([
             'status' => 'success',
             'Books' => $books,
@@ -23,11 +23,12 @@ class BooksController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'book_name'     => 'required|string|max:255',
-            'book_isbn'     => 'required|int|max:10',
-            'book_value'    => 'required|decimal'
-        ]);
+        if(!$request->book_name || !$request->book_isbn || !$request->book_value){
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Please fill all fields'
+            ]);
+        }
 
         $book = Books::create([
             'book_name' => $request->book_name,
@@ -44,7 +45,7 @@ class BooksController extends Controller
 
     public function show($id)
     {
-        $book = Books::find($id);
+        $book = Books::where('book_id', $id)->get();
         return response()->json([
             'status' => 'success',
             'Book' => $book,
@@ -53,34 +54,34 @@ class BooksController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'book_name'     => 'required|string|max:255',
-            'book_isbn'     => 'required|int|max:10',
-            'book_value'    => 'required|decimal'
-        ]);
+        if(!$request->book_name || !$request->book_isbn || !$request->book_value){
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Please fill all fields'
+            ]);
+        }
 
-        $book = Books::find($id);
-        $book->book_name = $request->book_name;
-        $book->book_isbn = $request->book_isbn;
-        $book->book_value = $request->book_value;
-        $book->save();
+        $book = Books::where('book_id', $id)->update([
+            'book_name'     => $request->book_name,
+            'book_isbn'     => $request->book_isbn,
+            'book_value'    => $request->book_value
+        ]);
 
         return response()->json([
             'status' => 'success',
             'message' => 'Book updated successfully',
-            'todo' => $book,
+            'Book' => $book,
         ]);
     }
 
     public function destroy($id)
     {
-        $book = Books::find($id);
-        $book->delete();
+        $book = Books::where('book_id', $id)->delete();
 
         return response()->json([
             'status' => 'success',
             'message' => 'Book deleted successfully',
-            'todo' => $book,
+            'book' => $book,
         ]);
     }
 
