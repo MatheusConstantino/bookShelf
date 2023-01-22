@@ -57,5 +57,12 @@ Make login with login route
 Try to create a book with barrer token given on login route
 
 ```bash
-  http://127.0.0.1:8000/api/login
+  http://127.0.0.1:8000/api/book
 ```
+
+Try to list books with barrer token given on login route
+
+```bash
+  http://127.0.0.1:8000/api/books
+```
+
